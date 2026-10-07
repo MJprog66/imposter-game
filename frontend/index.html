@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Imposter Game</title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+    <main id="app">
+
+
+        <!-- ========================================
+             MAIN MENU
+        ========================================= -->
+
+        <section id="mainMenu">
+
+            <h1>Guess <br> 🕵️WHO DOES <br> lie?</h1>
+
+
+            <!-- PLAYER SETTINGS -->
+
+            <section class="settings">
+
+                <label for="playerCount">
+                    Players
+                </label>
+
+                <input
+                    type="number"
+                    id="playerCount"
+                    min="3"
+                    value="3"
+                >
+
+
+                <label for="imposterCount">
+                    Imposters
+                </label>
+
+                <input
+                    type="number"
+                    id="imposterCount"
+                    min="1"
+                    value="1"
+                >
+
+            </section>
+
+
+            <!-- CATEGORIES -->
+
+            <section class="categories-section">
+
+                <h2>Select Categories</h2>
+
+                <div
+                    id="categoryList"
+                    class="category-list"
+                >
+                    <!-- JavaScript will add categories -->
+                </div>
+
+            </section>
+
+
+            <!-- MAIN MENU BUTTONS -->
+
+            <button id="createCategoryButton">
+                + Create New Category
+            </button>
+
+            <button id="startGameButton">
+                Start Game
+            </button>
+
+        </section>
+
+
+
+        <!-- ========================================
+             CREATE CATEGORY SCREEN
+        ========================================= -->
+
+        <section
+            id="createCategoryScreen"
+            class="screen hidden"
+        >
+
+            <h1>Create New Category</h1>
+
+
+            <!-- CATEGORY TITLE -->
+
+            <label for="categoryTitleInput">
+                Category Title
+            </label>
+
+            <input
+                type="text"
+                id="categoryTitleInput"
+                placeholder="Enter category title"
+            >
+
+
+            <!-- WORD INPUT -->
+
+            <label for="wordInput">
+                Words
+            </label>
+
+            <textarea
+                id="wordInput"
+                placeholder="Enter word(s)"
+                rows="2"
+            ></textarea>
+
+            <button id="addWordButton">
+                Add Word
+            </button>
+
+
+            <!-- SAVED WORDS -->
+
+            <h2>Saved Words</h2>
+
+            <div id="wordList">
+                <!-- JavaScript will add words here -->
+            </div>
+
+
+            <!-- CATEGORY BUTTONS -->
+
+            <button id="saveCategoryButton">
+                Save Category
+            </button>
+
+            <button id="cancelCategoryButton">
+                Cancel
+            </button>
+
+        </section>
+
+        <!-- ========================================
+            GAME SCREEN
+         ======================================== -->
+
+        <section
+            id="gameScreen"
+            class="screen hidden"
+        >
+
+            <h1>Imposter Game</h1>
+
+            <div id="playerCard">
+
+                <h2 id="playerNumber">
+                    Player 1
+                </h2>
+
+                <button id="revealButton">
+                    Reveal
+                </button>
+
+                <p
+                    id="secretWord"
+                    class="hidden"
+                >
+                </p>
+
+            </div>
+
+            <button
+                id="nextPlayerButton"
+                class="hidden"
+            >
+                Next Player
+            </button>
+
+            <button
+                id="startDiscussionButton"
+                class="hidden"
+            >
+                Start Discussion
+            </button>
+
+        </section>
+
+        <!-- ========================================
+            DISCUSSION SCREEN
+            ======================================== -->
+
+        <section
+            id="discussionScreen"
+            class="screen hidden"
+        >
+
+            <h1>Discussion Time!</h1>
+
+            <p id="startingPlayer">
+                Player 1 starts the discussion.
+            </p>
+
+            <button id="revealDiscussionButton">
+                Reveal
+            </button>
+
+            <div
+                id="discussionResult"
+                class="hidden"
+            >
+
+                <h2 id="discussionWord"></h2>
+
+                <p id="discussionImposters"></p>
+
+            </div>
+
+            <button
+                id="newGameButton"
+            >
+                New Game
+            </button>
+
+            <button
+                id="backToMainMenuButton"
+            >
+                Back to Main Menu
+            </button>
+
+        </section>
+
+
+    </main>
+
+    <script src="js/categories.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

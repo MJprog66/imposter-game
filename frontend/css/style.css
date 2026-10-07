@@ -1,0 +1,411 @@
+/* ========================================
+   GLOBAL
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+}
+
+
+/* ========================================
+   APP CONTAINER
+======================================== */
+
+#app {
+    width: 100%;
+    max-width: 500px;
+    min-height: 100vh;
+    margin: auto;
+    padding: 20px;
+}
+
+
+/* ========================================
+   MAIN TITLE
+======================================== */
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+/* ========================================
+   SETTINGS
+======================================== */
+
+.settings {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.settings label {
+    font-weight: bold;
+}
+
+.settings input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+
+/* ========================================
+   CATEGORIES SECTION
+======================================== */
+
+.categories-section {
+    margin-bottom: 20px;
+}
+
+.categories-section h2 {
+    margin-bottom: 15px;
+}
+
+
+/* ========================================
+   CATEGORY LIST
+======================================== */
+
+.category-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+
+/* ========================================
+   CATEGORY CARD
+======================================== */
+
+.category-card {
+    padding: 25px 15px;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    background: white;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+
+/* ========================================
+   CATEGORY CARD HOVER
+======================================== */
+
+.category-card:hover {
+    border-color: #777;
+}
+
+
+/* ========================================
+   SELECTED CATEGORY
+======================================== */
+
+.category-card.selected {
+    border-color: #333;
+    background: #ddd;
+}
+
+
+/* ========================================
+   BUTTONS
+======================================== */
+
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+/* ========================================
+   CREATE CATEGORY BUTTON
+======================================== */
+
+#createCategoryButton {
+    background: white;
+    border: 2px solid #333;
+}
+
+
+/* ========================================
+   START GAME BUTTON
+======================================== */
+
+#startGameButton {
+    background: #333;
+    color: white;
+}
+
+
+/* ========================================
+   BUTTON HOVER
+======================================== */
+
+button:hover {
+    opacity: 0.85;
+}
+
+
+/* ========================================
+   SCREEN CONTROL
+======================================== */
+
+.hidden {
+    display: none !important;
+}
+
+
+/* ========================================
+   CREATE CATEGORY SCREEN
+======================================== */
+
+#createCategoryScreen {
+    width: 100%;
+}
+
+
+/* ========================================
+   CREATE CATEGORY TITLE
+======================================== */
+
+#createCategoryScreen h1 {
+    margin-bottom: 30px;
+}
+
+
+/* ========================================
+   FORM LABELS
+======================================== */
+
+#createCategoryScreen label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   FORM INPUTS
+======================================== */
+
+#createCategoryScreen input,
+#createCategoryScreen textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    resize: vertical;
+}
+
+
+/* ========================================
+   ADD WORD BUTTON
+======================================== */
+
+#addWordButton {
+    background: #333;
+    color: white;
+}
+
+
+/* ========================================
+   SAVED WORDS TITLE
+======================================== */
+
+#createCategoryScreen h2 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+}
+
+
+/* ========================================
+   WORD LIST
+======================================== */
+
+#wordList {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+
+/* ========================================
+   WORD ITEM
+======================================== */
+
+.word-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 12px;
+    background: white;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+}
+
+
+/* ========================================
+   WORD TEXT
+======================================== */
+
+.word-text {
+    flex: 1;
+    font-size: 16px;
+}
+
+
+/* ========================================
+   WORD ACTIONS
+======================================== */
+
+.word-actions {
+    display: flex;
+    gap: 5px;
+}
+
+
+/* ========================================
+   EDIT / DELETE BUTTONS
+======================================== */
+
+.word-actions button {
+    width: auto;
+    margin: 0;
+    padding: 8px 10px;
+    font-size: 14px;
+}
+
+
+/* ========================================
+   EDIT BUTTON
+======================================== */
+
+.edit-word-button {
+    background: #eee;
+    border: 1px solid #aaa;
+}
+
+
+/* ========================================
+   DELETE BUTTON
+======================================== */
+
+.delete-word-button {
+    background: #ffdddd;
+    border: 1px solid #ff5555;
+}
+
+
+/* ========================================
+   SAVE CATEGORY BUTTON
+======================================== */
+
+#saveCategoryButton {
+    background: #333;
+    color: white;
+}
+
+
+/* ========================================
+   CANCEL CATEGORY BUTTON
+======================================== */
+
+#cancelCategoryButton {
+    background: white;
+    border: 2px solid #333;
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 500px) {
+
+    #app {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .category-card {
+        padding: 22px 10px;
+        font-size: 16px;
+    }
+}
+
+/* ========================================
+   CATEGORY TITLE
+   ======================================== */
+
+.category-title {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* ========================================
+   CATEGORY ACTIONS
+   ======================================== */
+
+.category-actions {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+
+/* ========================================
+   EDIT CATEGORY BUTTON
+   ======================================== */
+
+.edit-category-button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+/* ========================================
+   DELETE CATEGORY BUTTON
+   ======================================== */
+
+.delete-category-button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #e53935;
+    color: white;
+}
