@@ -159,6 +159,7 @@ let totalPlayers = 0;
 let totalImposters = 0;
 
 let secretWordValue = "";
+let secretHintValue = "";
 let imposterPlayers = [];
 
 let wordRevealed = false;
@@ -638,8 +639,14 @@ function startGame() {
             availableWords.length
         );
 
-    secretWordValue =
+    const selectedWord =
         availableWords[randomIndex];
+
+    secretWordValue =
+        selectedWord.word;
+
+    secretHintValue =
+        selectedWord.hint;
 
 
     // Reset game
@@ -715,41 +722,33 @@ function startGame() {
 
 function showPlayerCard() {
 
-    // Show current player number
-
     playerNumber.textContent =
         "Player " + currentPlayer;
-
-
-    // Hide the secret word
 
     secretWord.classList.add(
         "hidden"
     );
 
-
-    // Reset reveal state
-
     wordRevealed = false;
-
-
-    // Show Reveal button
 
     revealButton.classList.remove(
         "hidden"
     );
 
-
-    // Hide Next Player button
-
     nextPlayerButton.classList.add(
+        "hidden"
+    );
+
+    // Hide Start Discussion button
+
+    startDiscussionButton.classList.add(
         "hidden"
     );
 
 }
 
 // ========================================
-// REVEAL PLAYER WORD
+// REVEAL SECRET WORD
 // ========================================
 
 revealButton.addEventListener(
@@ -757,8 +756,6 @@ revealButton.addEventListener(
     function(event) {
 
         event.stopPropagation();
-
-        // First tap: reveal the result
 
         if (!wordRevealed) {
 
@@ -770,16 +767,19 @@ revealButton.addEventListener(
                 )
             ) {
 
-                secretWord.textContent =
-                    "IMPOSTER";
+                secretWord.innerHTML =
+                    "IMPOSTER<br><br>" +
+                    "Hint: " +
+                    secretHintValue;
 
             } else {
+
+                // Normal player sees the actual word
 
                 secretWord.textContent =
                     secretWordValue;
 
             }
-
 
             // Show the result
 
@@ -787,15 +787,11 @@ revealButton.addEventListener(
                 "hidden"
             );
 
-
-            // Hide the Reveal button
+            // Hide Reveal button
 
             revealButton.classList.add(
                 "hidden"
             );
-
-
-            // Mark as revealed
 
             wordRevealed = true;
 
@@ -973,6 +969,143 @@ revealDiscussionButton.addEventListener(
         revealDiscussionButton.classList.add(
             "hidden"
         );
+
+    }
+);
+
+// ========================================
+// START NEW GAME
+// ========================================
+
+function startNewGame() {
+
+    // Get all words from the selected categories
+
+    let availableWords = [];
+
+    selectedCategories.forEach(
+        function(categoryId) {
+
+            const category =
+                categories.find(
+                    function(category) {
+
+                        return (
+                            category.id ===
+                            categoryId
+                        );
+
+                    }
+                );
+
+            if (category) {
+
+                availableWords.push(
+                    ...category.words
+                );
+
+            }
+
+        }
+    );
+
+
+    // Make sure there are words available
+
+    if (availableWords.length === 0) {
+
+        alert(
+            "The selected categories have no words."
+        );
+
+        return;
+
+    }
+
+
+    // Choose a new random word
+
+    const randomIndex =
+        Math.floor(
+            Math.random() *
+            availableWords.length
+        );
+
+    const selectedWord =
+        availableWords[randomIndex];
+
+    secretWordValue =
+        selectedWord.word;
+
+    secretHintValue =
+        selectedWord.hint;
+
+
+    // Reset player
+
+    currentPlayer = 1;
+
+
+    // Reset imposter list
+
+    imposterPlayers = [];
+
+
+    // Choose new random imposters
+
+    while (
+        imposterPlayers.length <
+        totalImposters
+    ) {
+
+        const randomPlayer =
+            Math.floor(
+                Math.random() *
+                totalPlayers
+            ) + 1;
+
+
+        if (
+            !imposterPlayers.includes(
+                randomPlayer
+            )
+        ) {
+
+            imposterPlayers.push(
+                randomPlayer
+            );
+
+        }
+
+    }
+
+
+    // Show the Game Screen
+
+    discussionScreen.classList.add(
+        "hidden"
+    );
+
+    gameScreen.classList.remove(
+        "hidden"
+    );
+
+
+    // Show Player 1
+
+    showPlayerCard();
+
+}
+
+// ========================================
+// NEW GAME BUTTON
+// ========================================
+
+newGameButton.addEventListener(
+    "click",
+    function() {
+
+        startNewGame();
 
     }
 );
