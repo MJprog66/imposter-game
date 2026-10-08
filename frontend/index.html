@@ -122,14 +122,24 @@
             <!-- WORD INPUT -->
 
             <label for="wordInput">
-                Words
+                Word
             </label>
 
-            <textarea
+            <input
+                type="text"
                 id="wordInput"
-                placeholder="Enter word(s)"
-                rows="2"
-            ></textarea>
+                placeholder="Enter a word"
+            >
+
+            <label for="hintInput">
+                Hint
+            </label>
+
+            <input
+                type="text"
+                id="hintInput"
+                placeholder="Enter a hint for the imposter"
+            >
 
             <button id="addWordButton">
                 Add Word

@@ -135,6 +135,9 @@ const categoryTitleInput =
 const wordInput =
     document.getElementById("wordInput");
 
+const hintInput =
+    document.getElementById("hintInput");
+
 const addWordButton =
     document.getElementById("addWordButton");
 
@@ -1158,54 +1161,54 @@ addWordButton.addEventListener(
 
 
 // ========================================
-// ADD WORDS FUNCTION
+// ADD WORD
 // ========================================
 
 function addWords() {
 
-    const text =
+    const word =
         wordInput.value.trim();
 
-    if (text === "") {
+    const hint =
+        hintInput.value.trim();
+
+
+    // Check word
+
+    if (word === "") {
 
         alert(
-            "Please enter at least one word."
+            "Please enter a word."
         );
+
+        wordInput.focus();
 
         return;
     }
 
-    // Split the text into separate lines
 
-    const words =
-        text.split("\n");
+    // Add word and optional hint
 
-    words.forEach(
-        function(word) {
+    newCategoryWords.push({
 
-            const trimmedWord =
-                word.trim();
+        word: word,
 
-            // Ignore empty lines
+        hint: hint
 
-            if (trimmedWord !== "") {
+    });
 
-                newCategoryWords.push(
-                    trimmedWord
-                );
 
-            }
-
-        }
-    );
-
-    // Clear textarea
+    // Clear inputs
 
     wordInput.value = "";
 
-    // Put cursor back in textarea
+    hintInput.value = "";
+
+
+    // Put cursor back on Word
 
     wordInput.focus();
+
 
     // Update word list
 
@@ -1252,17 +1255,11 @@ wordInput.addEventListener(
 
 function displayWords() {
 
-    // Clear existing list
-
     wordList.innerHTML = "";
 
 
-    // Loop through words
-
     newCategoryWords.forEach(
-        function(word, index) {
-
-            // Create word container
+        function(wordData, index) {
 
             const wordItem =
                 document.createElement("div");
@@ -1272,26 +1269,52 @@ function displayWords() {
             );
 
 
-            // Create word text
+            // ========================================
+            // WORD INFORMATION
+            // ========================================
 
-            const wordText =
-                document.createElement("span");
-
-            wordText.classList.add(
-                "word-text"
-            );
-
-            wordText.textContent = word;
-
-
-            // Create action container
-
-            const actions =
+            const wordInformation =
                 document.createElement("div");
 
-            actions.classList.add(
-                "word-actions"
+            wordInformation.classList.add(
+                "word-information"
             );
+
+
+            const wordText =
+                document.createElement("strong");
+
+            wordText.textContent =
+                wordData.word;
+
+
+            wordInformation.appendChild(
+                wordText
+            );
+
+
+            // ========================================
+            // OPTIONAL HINT
+            // ========================================
+
+            if (
+                wordData.hint &&
+                wordData.hint.trim() !== ""
+            ) {
+
+                const hintText =
+                    document.createElement("small");
+
+                hintText.textContent =
+                    "Hint: " +
+                    wordData.hint;
+
+
+                wordInformation.appendChild(
+                    hintText
+                );
+
+            }
 
 
             // ========================================
@@ -1301,11 +1324,8 @@ function displayWords() {
             const editButton =
                 document.createElement("button");
 
-            editButton.textContent = "Edit";
-
-            editButton.classList.add(
-                "edit-word-button"
-            );
+            editButton.textContent =
+                "Edit";
 
 
             editButton.addEventListener(
@@ -1325,7 +1345,8 @@ function displayWords() {
             const deleteButton =
                 document.createElement("button");
 
-            deleteButton.textContent = "Delete";
+            deleteButton.textContent =
+                "Delete";
 
             deleteButton.classList.add(
                 "delete-word-button"
@@ -1342,29 +1363,39 @@ function displayWords() {
             );
 
 
-            // Add buttons to actions
+            // ========================================
+            // ACTIONS
+            // ========================================
 
-            actions.appendChild(
+            const wordActions =
+                document.createElement("div");
+
+            wordActions.classList.add(
+                "word-actions"
+            );
+
+
+            wordActions.appendChild(
                 editButton
             );
 
-            actions.appendChild(
+            wordActions.appendChild(
                 deleteButton
             );
 
 
-            // Add word and actions
+            // ========================================
+            // ADD TO WORD ITEM
+            // ========================================
 
             wordItem.appendChild(
-                wordText
+                wordInformation
             );
 
             wordItem.appendChild(
-                actions
+                wordActions
             );
 
-
-            // Add item to word list
 
             wordList.appendChild(
                 wordItem
@@ -1372,6 +1403,7 @@ function displayWords() {
 
         }
     );
+
 }
 
 
