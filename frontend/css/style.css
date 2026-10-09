@@ -409,3 +409,78 @@ button:hover {
     background-color: #e53935;
     color: white;
 }
+
+
+/* ========================================
+   PLAYER FLASHCARD DESIGN
+   ======================================== */
+
+#playerCard {
+    width: 280px;
+    min-height: 360px;
+    margin: 30px auto;
+    padding: 30px 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 5px solid rgba(255, 255, 255, 0.8);
+    border-radius: 24px;
+
+    background: linear-gradient(
+        145deg,
+        #6c63ff,
+        #4834d4
+    );
+
+    color: white;
+    text-align: center;
+
+    box-shadow:
+        0 12px 25px rgba(0, 0, 0, 0.2),
+        inset 0 0 0 3px rgba(255, 255, 255, 0.15);
+
+    cursor: pointer;
+    user-select: none;
+
+    transition:
+        background 0.4s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+/* Hover effect */
+#playerCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* Player number */
+#playerNumber {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Secret word or imposter hint */
+#secretWord {
+    font-size: 24px;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+    white-space: pre-line;
+}
+
+/* Reveal button */
+#revealButton {
+    margin-top: 20px;
+}
+
+/* Smaller cards on mobile */
+@media (max-width: 400px) {
+    #playerCard {
+        width: 85%;
+        min-height: 320px;
+    }
+}

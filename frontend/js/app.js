@@ -719,35 +719,48 @@ function startGame() {
 
 }
 
-// ========================================
-// SHOW PLAYER CARD
-// ========================================
+
+/* ========================================
+   SHOW PLAYER CARD
+   ======================================== */
 
 function showPlayerCard() {
 
-    playerNumber.textContent =
-        "Player " + currentPlayer;
+    // Display the current player number
+    playerNumber.textContent = "Player " + currentPlayer;
 
-    secretWord.classList.add(
-        "hidden"
-    );
+    // Hide the secret word
+    secretWord.classList.add("hidden");
 
+    // Reset the reveal state
     wordRevealed = false;
 
-    revealButton.classList.remove(
-        "hidden"
-    );
+    // Show the Reveal button
+    revealButton.classList.remove("hidden");
 
-    nextPlayerButton.classList.add(
-        "hidden"
-    );
+    // Hide the other buttons
+    nextPlayerButton.classList.add("hidden");
+    startDiscussionButton.classList.add("hidden");
 
-    // Hide Start Discussion button
+    // Different colors for each player
+    const playerColors = [
+        ["#6c63ff", "#4834d4"], // Purple
+        ["#ff6b6b", "#ee5253"], // Red
+        ["#1dd1a1", "#10ac84"], // Green
+        ["#feca57", "#ff9f43"], // Yellow and orange
+        ["#54a0ff", "#2e86de"], // Blue
+        ["#ff9ff3", "#f368e0"], // Pink
+        ["#48dbfb", "#0abde3"], // Cyan
+        ["#a29bfe", "#6c5ce7"]  // Lavender
+    ];
 
-    startDiscussionButton.classList.add(
-        "hidden"
-    );
+    // Choose a color based on the player number
+    const colorIndex = (currentPlayer - 1) % playerColors.length;
+    const colors = playerColors[colorIndex];
 
+    // Apply the colors to the card
+    playerCard.style.background =
+        `linear-gradient(145deg, ${colors[0]}, ${colors[1]})`;
 }
 
 // ========================================
@@ -811,39 +824,53 @@ playerCard.addEventListener(
     "click",
     function() {
 
-        // Only allow second tap
-        // after the result is revealed
+        // Only continue if the word is revealed
 
         if (!wordRevealed) {
-
             return;
-
         }
 
+        // Hide the secret word or hint
 
-        // Hide the secret
+        secretWord.classList.add("hidden");
 
-        secretWord.classList.add(
-            "hidden"
-        );
-
-
-        // Show player number again
+        // Show the player number again
 
         playerNumber.textContent =
             "Player " + currentPlayer;
 
-
-        // Show Next Player button
-
-        nextPlayerButton.classList.remove(
-            "hidden"
-        );
-
-
-        // Prevent another reveal
+        // Allow the player to reveal the card again
+        // only when the next card is shown
 
         wordRevealed = false;
+
+        // Check if this is the final player
+
+        if (currentPlayer < totalPlayers) {
+
+            // More players remain
+
+            nextPlayerButton.classList.remove(
+                "hidden"
+            );
+
+            startDiscussionButton.classList.add(
+                "hidden"
+            );
+
+        } else {
+
+            // All players have finished
+
+            nextPlayerButton.classList.add(
+                "hidden"
+            );
+
+            startDiscussionButton.classList.remove(
+                "hidden"
+            );
+
+        }
 
     }
 );
@@ -856,8 +883,6 @@ nextPlayerButton.addEventListener(
     "click",
     function() {
 
-        // If there are still players remaining
-
         if (currentPlayer < totalPlayers) {
 
             currentPlayer++;
@@ -866,15 +891,11 @@ nextPlayerButton.addEventListener(
 
         } else {
 
-            // All players have seen their cards
+            // All players have finished
 
-            nextPlayerButton.classList.add(
-                "hidden"
-            );
+            nextPlayerButton.classList.add("hidden");
 
-            startDiscussionButton.classList.remove(
-                "hidden"
-            );
+            startDiscussionButton.classList.remove("hidden");
 
         }
 
@@ -1306,7 +1327,7 @@ function displayWords() {
                     document.createElement("small");
 
                 hintText.textContent =
-                    "Hint: " +
+                    "    Hint: " +
                     wordData.hint;
 
 
@@ -1413,56 +1434,45 @@ function displayWords() {
 
 function editWord(index) {
 
-    // Get current word
+    // Get the selected word object
 
-    const currentWord =
+    const wordData =
         newCategoryWords[index];
 
-
-    // Ask for new word
-
-    const newWord =
-        prompt(
-            "Edit word:",
-            currentWord
-        );
-
-
-    // User pressed Cancel
-
-    if (newWord === null) {
-
+    if (!wordData) {
         return;
     }
 
 
-    // Remove spaces
+    // Put the existing word into the input
 
-    const trimmedWord =
-        newWord.trim();
-
-
-    // Check empty word
-
-    if (trimmedWord === "") {
-
-        alert(
-            "Word cannot be empty."
-        );
-
-        return;
-    }
+    wordInput.value =
+        wordData.word;
 
 
-    // Update word
+    // Put the existing hint into the input
 
-    newCategoryWords[index] =
-        trimmedWord;
+    hintInput.value =
+        wordData.hint || "";
 
 
-    // Refresh list
+    // Remove the old word from the list
+
+    newCategoryWords.splice(
+        index,
+        1
+    );
+
+
+    // Refresh the saved word list
 
     displayWords();
+
+
+    // Focus the Word input
+
+    wordInput.focus();
+
 }
 
 
